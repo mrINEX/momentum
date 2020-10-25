@@ -8,6 +8,8 @@ const blockquote = document.querySelector('blockquote');
 const figcaption = document.querySelector('figcaption');
 const nextQuote = document.querySelector('.next-quote');
 const city = document.querySelector('.city');
+const weather = document.querySelector('.weather');
+const notFound = document.querySelector('.not-found');
 
 // constants
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -182,6 +184,7 @@ function setCity(e) {
       } else {
         getCity();
       }
+      getWeather();
     }
   } else {
     if (e.target.innerText) {
@@ -189,6 +192,7 @@ function setCity(e) {
     } else {
       getCity();
     }
+    getWeather();
   }
 }
 
@@ -248,7 +252,27 @@ async function getQuote() {
   }
 }
 
+async function getWeather() {
+  const API_key = 'c6b65e868774bd345d33ca46c70b7a17';
+  const URL_API_ICON = 'http://openweathermap.org/';
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.textContent}&units=metric&appid=${API_key}`;
+  const res = await fetch(url);
+  const data = await res.json();
+
+  if (data.cod !== '404') {
+    const src = `${URL_API_ICON}img/wn/${data.weather[0].icon}@2x.png`;
+    weather.children[0].style.backgroundImage = `url('${src}')`;
+    weather.children[1].textContent = `${Math.round(data.main.temp)}°`;
+    weather.children[2].textContent = `humidity: ${data.main.humidity}`;
+    weather.children[3].textContent = `wind speed: ${data.wind.speed}`;
+    notFound.textContent = '';
+  } else {
+    notFound.textContent = `${data.cod} ${data.message}`;
+  }
+}
+
 document.addEventListener('DOMContentLoaded', getQuote);
+document.addEventListener('DOMContentLoaded', getWeather);
 nextQuote.addEventListener('click', getQuote);
 
 name.addEventListener('click', inputName);
