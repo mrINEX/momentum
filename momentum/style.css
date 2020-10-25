@@ -27,6 +27,7 @@ body {
 .focus,
 .city {
   caret-color: transparent;
+  cursor: pointer;
 }
 
 .next-background,
@@ -38,6 +39,27 @@ body {
   cursor: pointer;
   text-shadow: none;
   font-family: 'Quicksand', sans-serif;
+}
+
+.next-background:hover {
+  background-color: rgb(247 254 255 / 75%);
+}
+
+.next-quote:hover {
+  background-color: rgb(247 254 255 / 75%);
+}
+
+.city:hover {
+  background-color: rgb(247 254 255 / 75%);
+  border-radius: 3px;
+}
+.focus:hover {
+  background-color: rgb(247 254 255 / 75%);
+  border-radius: 3px;
+}
+.name:hover {
+  background-color: rgb(247 254 255 / 75%);
+  border-radius: 3px;
 }
 
 .quote,
