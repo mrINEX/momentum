@@ -77,22 +77,22 @@ function setBgGreet() {
 
   if (hour < 6) {
     // Night
-    changeBg(`./assets/images/night/${addZero(night)}.jpg`);
+    changeBg(`./momentum/assets/images/night/${addZero(night)}.jpg`);
     greeting.textContent = 'Good Night, ';
     countNight += 1;
   } else if (hour < 12) {
     // Morning
-    changeBg(`./assets/images/morning/${addZero(morning)}.jpg`);
+    changeBg(`./momentum/assets/images/morning/${addZero(morning)}.jpg`);
     greeting.textContent = 'Good Morning, ';
     countMorning += 1;
   } else if (hour < 18) {
     // Afternoon
-    changeBg(`./assets/images/day/${addZero(afternoon)}.jpg`);
+    changeBg(`./momentum/assets/images/day/${addZero(afternoon)}.jpg`);
     greeting.textContent = 'Good Afternoon, ';
     countAfternoon += 1;
   } else {
     // Evening
-    changeBg(`./assets/images/evening/${addZero(evening)}.jpg`);
+    changeBg(`./momentum/assets/images/evening/${addZero(evening)}.jpg`);
     greeting.textContent = 'Good Evening, ';
     countEvening += 1;
   }
@@ -108,16 +108,16 @@ nextBackground.addEventListener('click', () => {
   }, 1000);
 
   if (hour < 6) {
-    changeBg(`./assets/images/night/${addZero(night)}.jpg`);
+    changeBg(`./momentum/assets/images/night/${addZero(night)}.jpg`);
     countNight += 1;
   } else if (hour < 12) {
-    changeBg(`./assets/images/morning/${addZero(morning)}.jpg`);
+    changeBg(`./momentum/assets/images/morning/${addZero(morning)}.jpg`);
     countMorning += 1;
   } else if (hour < 18) {
-    changeBg(`./assets/images/day/${addZero(afternoon)}.jpg`);
+    changeBg(`./momentum/assets/images/day/${addZero(afternoon)}.jpg`);
     countAfternoon += 1;
   } else {
-    changeBg(`./assets/images/evening/${addZero(evening)}.jpg`);
+    changeBg(`./momentum/assets/images/evening/${addZero(evening)}.jpg`);
     countEvening += 1;
   }
 })
