@@ -1,12 +1,19 @@
 // DOM Elements
-const time = document.querySelector('.time'),
-  greeting = document.querySelector('.greeting'),
-  name = document.querySelector('.name'),
-  focus = document.querySelector('.focus');
+const time = document.querySelector('.time');
+const greeting = document.querySelector('.greeting');
+const name = document.querySelector('.name');
+const focus = document.querySelector('.focus');
+const nextBackground = document.querySelector('.next-background');
+const blockquote = document.querySelector('blockquote');
+const figcaption = document.querySelector('figcaption');
+const nextQuote = document.querySelector('.next-quote');
+const city = document.querySelector('.city');
 
 // constants
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const DAY = ['morning', 'day', 'evening', 'night'];
+const MS = 3600000;
 
 // Show Time
 function showTime() {
@@ -32,34 +39,86 @@ function addZero(n) {
   return (parseInt(n, 10) < 10 ? '0' : '') + n;
 }
 
+// Set Params
+let countNight = randomInteger(1, 20);
+let countMorning = randomInteger(1, 20);
+let countAfternoon = randomInteger(1, 20);
+let countEvening = randomInteger(1, 20);
+
+function changeBg(src) {
+  const img = document.createElement('img');
+  img.src = src;
+  img.onload = () => {
+    document.body.style.backgroundImage = `url('${src}')`;
+  };
+};
+
+function randomInteger(min, max) {
+  let rand = min + Math.random() * (max + 1 - min);
+  return Math.floor(rand);
+}
+
+function counts() {
+  let today = new Date();
+  const hour = today.getHours();
+
+  let night = countNight % 20 || 20;
+  let morning = countMorning % 20 || 20;
+  let afternoon = countAfternoon % 20 || 20;
+  let evening = countEvening % 20 || 20;
+  return { hour, night, morning, afternoon, evening};
+}
+
 // Set Background and Greeting
 function setBgGreet() {
-  let today = new Date(),
-    hour = today.getHours();
+  const { hour, night, morning, afternoon, evening } = counts();
 
   if (hour < 6) {
     // Night
-    document.body.style.backgroundImage =
-      "url('./assets/images/night/01.jpg')";
+    changeBg(`./assets/images/night/${addZero(night)}.jpg`);
     greeting.textContent = 'Good Night, ';
+    countNight += 1;
   } else if (hour < 12) {
     // Morning
-    document.body.style.backgroundImage =
-      "url('https://i.ibb.co/7vDLJFb/morning.jpg')";
+    changeBg(`./assets/images/morning/${addZero(morning)}.jpg`);
     greeting.textContent = 'Good Morning, ';
+    countMorning += 1;
   } else if (hour < 18) {
     // Afternoon
-    document.body.style.backgroundImage =
-      "url('https://i.ibb.co/3mThcXc/afternoon.jpg')";
+    changeBg(`./assets/images/day/${addZero(afternoon)}.jpg`);
     greeting.textContent = 'Good Afternoon, ';
+    countAfternoon += 1;
   } else {
     // Evening
-    document.body.style.backgroundImage =
-      "url('https://i.ibb.co/924T2Wv/night.jpg')";
+    changeBg(`./assets/images/evening/${addZero(evening)}.jpg`);
     greeting.textContent = 'Good Evening, ';
-    document.body.style.color = 'white';
+    countEvening += 1;
   }
+
+  setTimeout(setBgGreet, MS);
 }
+
+nextBackground.addEventListener('click', () => {
+  const { hour, night, morning, afternoon, evening } = counts();
+  nextBackground.disabled = true;
+  setTimeout(() => {
+    nextBackground.disabled = false;
+  }, 1000);
+
+  if (hour < 6) {
+    changeBg(`./assets/images/night/${addZero(night)}.jpg`);
+    countNight += 1;
+  } else if (hour < 12) {
+    changeBg(`./assets/images/morning/${addZero(morning)}.jpg`);
+    countMorning += 1;
+  } else if (hour < 18) {
+    changeBg(`./assets/images/day/${addZero(afternoon)}.jpg`);
+    countAfternoon += 1;
+  } else {
+    changeBg(`./assets/images/evening/${addZero(evening)}.jpg`);
+    countEvening += 1;
+  }
+})
 
 // Get Name
 function getName() {
@@ -72,9 +131,6 @@ function getName() {
 
 // Input Name
 function inputName() {
-  localStorage.setItem('name', name.textContent);
-  localStorage.setItem('name-width', name.offsetWidth);
-  name.style.width = '3px';
   name.textContent = '';
   name.focus();
 }
@@ -86,20 +142,52 @@ function setName(e) {
     if (e.which == 13 || e.keyCode == 13) {
       if (e.target.innerText) {
         localStorage.setItem('name', e.target.innerText);
-        name.style.width = 'initial';
         name.blur();
       } else {
-        name.style.width = `${localStorage.getItem('name-width')}px`;
         getName();
       }
     }
   } else {
     if (e.target.innerText) {
       localStorage.setItem('name', e.target.innerText);
-      name.style.width = 'initial';
     } else {
-      name.style.width = `${localStorage.getItem('name-width')}px`;
       getName();
+    }
+  }
+}
+
+// Get City
+function getCity() {
+  if (localStorage.getItem('city') === null) {
+    city.textContent = 'Minsk';
+  } else {
+    city.textContent = localStorage.getItem('city');
+  }
+}
+
+// Input City
+function inputCity() {
+  city.textContent = '';
+  city.focus();
+}
+
+// Set City
+function setCity(e) {
+  if (e.type === 'keypress') {
+    // Make sure enter is pressed
+    if (e.which == 13 || e.keyCode == 13) {
+      if (e.target.innerText) {
+        localStorage.setItem('city', e.target.innerText);
+        city.blur();
+      } else {
+        getCity();
+      }
+    }
+  } else {
+    if (e.target.innerText) {
+      localStorage.setItem('city', e.target.innerText);
+    } else {
+      getCity();
     }
   }
 }
@@ -115,9 +203,6 @@ function getFocus() {
 
 // Input Focus
 function inputFocus() {
-  localStorage.setItem('focus', focus.textContent);
-  localStorage.setItem('focus-width', focus.offsetWidth);
-  focus.style.width = '3px';
   focus.textContent = '';
   focus.focus();
 }
@@ -129,23 +214,42 @@ function setFocus(e) {
     if (e.which == 13 || e.keyCode == 13) {
       if (e.target.innerText) {
         localStorage.setItem('focus', e.target.innerText);
-        focus.style.width = 'initial';
         focus.blur();
       } else {
-        focus.style.width = `${localStorage.getItem('focus-width')}px`;
         getFocus();
       }
     }
   } else {
     if (e.target.innerText) {
       localStorage.setItem('focus', e.target.innerText);
-      focus.style.width = 'initial';
     } else {
-      focus.style.width = `${localStorage.getItem('focus-width')}px`;
       getFocus();
     }
   }
 }
+
+// Quote
+
+async function getQuote() {
+  nextQuote.disabled = true;
+  setTimeout(() => {
+    nextQuote.disabled = false;
+  }, 1000);
+  try {
+    const url = `https://type.fit/api/quotes`;
+    const res = await fetch(url);
+    const data = await res.json();
+    const number = randomInteger(1, data.length);
+    const { text, author} = data[number];
+    blockquote.textContent = text;
+    figcaption.textContent = author;
+  } catch (e) {
+    console.log('Error:', e.message);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', getQuote);
+nextQuote.addEventListener('click', getQuote);
 
 name.addEventListener('click', inputName);
 name.addEventListener('keypress', setName);
@@ -153,9 +257,13 @@ name.addEventListener('blur', setName);
 focus.addEventListener('click', inputFocus);
 focus.addEventListener('keypress', setFocus);
 focus.addEventListener('blur', setFocus);
+city.addEventListener('click', inputCity);
+city.addEventListener('keypress', setCity);
+city.addEventListener('blur', setCity);
 
 // Run
 showTime();
 setBgGreet();
 getName();
 getFocus();
+getCity();

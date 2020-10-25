@@ -15,15 +15,43 @@ body {
   height: 100vh;
   background-size: cover;
   color: #000000;
+  transition: background-image 1s ease-in-out;
 }
 
 .time {
-  font-size: 4rem;
+  font-size: 3rem;
 }
 
 .name,
 .focus {
-  display: inline-flex;
+  caret-color: transparent;
+}
+
+.next-background,
+.next-quote {
+  padding: 4px;
+  border: none;
+  background-color: rgb(247 254 255 / 73%);
+  border-radius: 3px;
+  cursor: pointer;
+  text-shadow: none;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.quote {
+  background-color: rgb(247 254 255 / 73%);
+  border-radius: 3px;
+  width: 60%;
+}
+
+blockquote,
+figcaption {
+  text-shadow: none;
+}
+
+.quote figcaption {
+  text-align: right;
+  padding: 8px;
 }
 
 h1 {
@@ -37,6 +65,26 @@ h2 {
 
 @media (max-width: 700px) {
   .time {
-    font-size: 3rem;
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .time {
+    font-size: 1.3rem;
+  }
+
+  h1 {
+    margin-bottom: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+    opacity: 1;
+  }
+
+  blockquote,
+  figcaption {
+    font-size: 0.7rem;
   }
 }
