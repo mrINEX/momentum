@@ -142,7 +142,8 @@ function setName(e) {
   if (e.type === 'keypress') {
     // Make sure enter is pressed
     if (e.which == 13 || e.keyCode == 13) {
-      if (e.target.innerText) {
+      e.preventDefault();
+      if (e.target.innerText.trim()) {
         localStorage.setItem('name', e.target.innerText);
         name.blur();
       } else {
@@ -150,7 +151,7 @@ function setName(e) {
       }
     }
   } else {
-    if (e.target.innerText) {
+    if (e.target.innerText.trim()) {
       localStorage.setItem('name', e.target.innerText);
     } else {
       getName();
@@ -178,7 +179,8 @@ function setCity(e) {
   if (e.type === 'keypress') {
     // Make sure enter is pressed
     if (e.which == 13 || e.keyCode == 13) {
-      if (e.target.innerText) {
+      e.preventDefault();
+      if (e.target.innerText.trim()) {
         localStorage.setItem('city', e.target.innerText);
         city.blur();
       } else {
@@ -187,7 +189,7 @@ function setCity(e) {
       getWeather();
     }
   } else {
-    if (e.target.innerText) {
+    if (e.target.innerText.trim()) {
       localStorage.setItem('city', e.target.innerText);
     } else {
       getCity();
@@ -216,7 +218,8 @@ function setFocus(e) {
   if (e.type === 'keypress') {
     // Make sure enter is pressed
     if (e.which == 13 || e.keyCode == 13) {
-      if (e.target.innerText) {
+      e.preventDefault();
+      if (e.target.innerText.trim()) {
         localStorage.setItem('focus', e.target.innerText);
         focus.blur();
       } else {
@@ -224,7 +227,7 @@ function setFocus(e) {
       }
     }
   } else {
-    if (e.target.innerText) {
+    if (e.target.innerText.trim()) {
       localStorage.setItem('focus', e.target.innerText);
     } else {
       getFocus();
