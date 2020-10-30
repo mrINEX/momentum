@@ -16,7 +16,6 @@ const dateFull = document.querySelector('.date-full');
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const DAY = ['morning', 'day', 'evening', 'night'];
-const MS = 3600000;
 
 // Show Time
 function showTime() {
@@ -33,6 +32,10 @@ function showTime() {
   // Output Time
   dateFull.textContent = `${WEEKDAYS[day]}, ${date} ${MONTHS[month]} `;
   time.innerHTML = `${hour}<span>:</span>${addZero(min)}<span>:</span>${addZero(sec)}`;
+
+  if (!min && !sec) {
+    setBgGreet();
+  }
 
   setTimeout(showTime, 1000);
 }
@@ -97,8 +100,6 @@ function setBgGreet() {
     greeting.textContent = 'Good Evening, ';
     countEvening += 1;
   }
-
-  setTimeout(setBgGreet, MS);
 }
 
 nextBackground.addEventListener('click', () => {

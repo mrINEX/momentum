@@ -19,7 +19,10 @@ body {
   padding: 0 10px;
 }
 
-.time,
+.time {
+  font-size: 3rem;
+}
+
 .date-full {
   font-size: 3rem;
 }
