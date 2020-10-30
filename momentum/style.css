@@ -19,7 +19,8 @@ body {
   padding: 0 10px;
 }
 
-.time {
+.time,
+.date-full {
   font-size: 3rem;
 }
 
@@ -132,10 +133,16 @@ h2 {
   .time {
     font-size: 2rem;
   }
+  .date-full {
+    font-size: 2rem;
+  }
 }
 
 @media (max-width: 400px) {
   .time {
+    font-size: 1.3rem;
+  }
+  .date-full {
     font-size: 1.3rem;
   }
 

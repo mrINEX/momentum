@@ -10,6 +10,7 @@ const nextQuote = document.querySelector('.next-quote');
 const city = document.querySelector('.city');
 const weather = document.querySelector('.weather');
 const notFound = document.querySelector('.not-found');
+const dateFull = document.querySelector('.date-full');
 
 // constants
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -30,8 +31,8 @@ function showTime() {
   let sec = today.getSeconds();
 
   // Output Time
-  time.innerHTML = `${WEEKDAYS[day]}, ${date} ${MONTHS[month]} `;
-  time.innerHTML += `${hour}<span>:</span>${addZero(min)}<span>:</span>${addZero(sec)}`;
+  dateFull.textContent = `${WEEKDAYS[day]}, ${date} ${MONTHS[month]} `;
+  time.innerHTML = `${hour}<span>:</span>${addZero(min)}<span>:</span>${addZero(sec)}`;
 
   setTimeout(showTime, 1000);
 }
